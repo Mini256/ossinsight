@@ -1,7 +1,13 @@
 
 import fp from "fastify-plugin";
 import {getConnectionOptions} from "../../utils/db";
-import fastifyMySQL from "@fastify/mysql";
+import fastifyMySQL, {MySQLPromisePool} from "@fastify/mysql";
+
+declare module "fastify" {
+    interface FastifyInstance {
+        mysql: MySQLPromisePool;
+    }
+}
 
 export default fp(async (app) => {
     // Init MySQL Client.
